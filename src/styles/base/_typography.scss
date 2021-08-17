@@ -1,0 +1,30 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.heading-main {
+  display: block;
+  font-size: 3rem;
+  font-weight: 600;
+
+  @include respond(phone) {
+    font-size: 2.5rem;
+  }
+}
+
+.heading-sub {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 600;
+
+  @include respond(phone) {
+    font-size: 1.8rem;
+  }
+}
+
+.paragraph {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: $color-grey;
+}

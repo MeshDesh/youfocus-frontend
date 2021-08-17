@@ -1,0 +1,6 @@
+{
+  "lint-staged": {
+    "*.+(ts|tsx)": "eslint --fix",
+    "*.+(json|css|md)": "prettier --write"
+  }
+}
