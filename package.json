@@ -1,5 +1,5 @@
 {
-    "name": "create-react-app-with-eslint-husky-prettier",
+    "name": "youfocus-frontend",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
