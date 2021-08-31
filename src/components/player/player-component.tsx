@@ -116,7 +116,7 @@ const Player: React.FC = () => {
     });
 
     return (
-        <Container maxW="container.xl" className="player_ui">
+            <React.Fragment>
             <Box className="player_container">
                 {videos.length !== 0 ? (
                     <YouTube
@@ -128,6 +128,7 @@ const Player: React.FC = () => {
                     <Skeleton height={opts.height} />
                 )}
             </Box>
+            <Container maxW="container.xl" className="player_ui">
             <Flex justifyContent="space-between" className="video_info">
                 <Box>
                     {videos.length !== 0 ? (
@@ -175,6 +176,7 @@ const Player: React.FC = () => {
                 ></PlaylistContainer>
             </Box>
         </Container>
+        </React.Fragment>
     )
 }
 
