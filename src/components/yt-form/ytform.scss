@@ -1,0 +1,41 @@
+@import '../../styles/abstracts/_variables.scss';
+
+.yt_input{
+    margin: 20px 0px;
+    .yt_input_field{
+        height: 40px;
+        font-size: 14px;
+        border-top-right-radius: 0px ;
+        border-bottom-right-radius: 0px;
+    }
+    .add_icon{
+        height: auto;
+        width: 100px;
+        border-top-left-radius: 0px ;
+        border-bottom-left-radius: 0px;
+        display: flex;
+        color: $color-white;
+        background-color: $color-focus-red;
+        justify-content: center;
+        cursor: pointer;
+        align-items: center;
+    }
+    .yt_btn{
+        background-color: $color-focus-red;
+        width: 200px;
+        margin: 0px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $color-white;
+        border-radius: 50px;
+        text-align: center;
+    }
+}
+.error{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    margin: 20px 0px;
+    font-weight: 500;
+    color: $color-focus-red;
+}

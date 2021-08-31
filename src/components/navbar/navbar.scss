@@ -1,0 +1,48 @@
+@import "../../styles/abstracts/_variables";
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+    font-family: "Inter", sans-serif;
+    align-items: center;
+    padding: 20px;
+    .logo {
+        font-size: 20px;
+    }
+    .navlinks {
+        align-items: center;
+        font-size: 14px;
+        .link {
+            font-family: "Inter", sans-serif;
+            margin: 0px 10px;
+        }
+    }
+    .nav_links_mobile {
+        flex-direction: column;
+    }
+    .product_hunt_btn {
+        color: $color-white;
+        height: auto;
+        padding: 10px;
+        background: $color-focus-red;
+        &:hover, &:active, &:focus{
+            color: $color-black;
+        }
+        .ph_icon {
+            align-items: flex-start;
+            margin-right: 10px;
+        }
+    }
+    .feedback_btn {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        padding: 20px;
+    }
+    .menu_toggle {
+        background: none !important;
+    }
+}

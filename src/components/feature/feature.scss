@@ -1,0 +1,51 @@
+.feature_container {
+    margin-bottom: 100px;
+    .feature_title {
+        margin: 10px 10px !important;
+        font-family: "Inter", sans-serif !important;
+        font-weight: 500 !important;
+    }
+    .features_grid {
+        padding: 10px;
+        height: 100%;
+        margin: 20px 0px;
+        justify-content: center;
+        align-items: center;
+
+        .feature_img {
+            width: 200px;
+            column-span: 0;
+        }
+        .guy_in_chair {
+            height: 300px;
+        }
+        .feature_card {
+            overflow: hidden;
+            border-radius: 5px;
+            height: 200px;
+            width: auto;
+            padding: 10px;
+            justify-content: flex-start;
+            align-items: center;
+            display: flex;
+            img {
+                height: 150px;
+            }
+            .feature_card_content {
+                font-family: "Inter", sans-serif;
+                margin: 0px 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                .feature_card_heading {
+                    font-family: "Inter", sans-serif;
+                    margin: 10px 0px;
+                    line-height: 20px;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+}

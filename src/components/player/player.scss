@@ -1,0 +1,29 @@
+.player_ui {
+    margin-bottom: 150px;
+    font-family: 'Inter', sans-serif;
+    .player_container {
+        position: relative;
+        margin: 10px 0px;
+        overflow: hidden;
+    }
+    .video_info{
+        margin: 20px 0px;
+    }
+    .video_title{
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+    }
+    .channel_name{
+        margin: 10px 0px;
+        font-size: 14px;
+    }
+    .video_card{
+        height: 100px;
+        width: 100%;
+    }
+}
+.alert_text{
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}

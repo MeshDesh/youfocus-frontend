@@ -1,0 +1,33 @@
+@import '../../styles/abstracts/_variables.scss';
+
+.footer{
+    position: fixed;
+    padding: 15px;
+    width: 100%;
+    bottom: 0;
+    .links {
+        margin: 5px 10px;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+        > a {
+            margin: 0px 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+    }
+    .copy{
+        margin: 0px 10px;
+    }
+    .footer_controls{
+        margin: 0px 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        font-size: 12px;
+        font-family: 'Inter', sans-serif;
+        .theme_control{
+            margin-bottom: 10px;
+        }
+    }
+}
