@@ -1,4 +1,12 @@
-import { Container, Heading, Box, SimpleGrid, Skeleton, Flex, Text } from "@chakra-ui/react"
+import {
+    Container,
+    Heading,
+    Box,
+    SimpleGrid,
+    Skeleton,
+    Flex,
+    Text,
+} from "@chakra-ui/react"
 import React, { useState } from "react"
 import { useEffect } from "react"
 import Navbar from "../components/navbar/navbar-component"
@@ -14,11 +22,26 @@ const User: React.FC = () => {
 
     useEffect(() => {
         let storedPlaylists = JSON.parse(localStorage.getItem("playlists") || "[]")
-        let recentPlaylist = JSON.parse(localStorage.getItem("recentlyPlayed") || "[]")
+        let recentPlaylist = JSON.parse(
+            localStorage.getItem("recentlyPlayed") || "[]"
+        )
         setRecent(recentPlaylist)
         setPlaylists(storedPlaylists)
         setLoading(false)
     }, [])
+
+    const handlePlaylistDelete = (id: string, isRecent: boolean) => {
+        let updatedPlaylists = isRecent
+            ? recent.filter((playlist) => id !== playlist.playlistId)
+            : playlists.filter((playlist) => id !== playlist.playlistId)
+        if (isRecent) {
+            setRecent(updatedPlaylists)
+            localStorage.setItem("recentlyPlayed", JSON.stringify(updatedPlaylists))
+        }else{
+            setPlaylists(updatedPlaylists)
+            localStorage.setItem("playlists", JSON.stringify(updatedPlaylists))
+        }
+    }
 
     return (
         <div>
@@ -36,18 +59,17 @@ const User: React.FC = () => {
                         columns={{
                             base: 1,
                             md: 2,
-                            lg: 3,
+                            lg: 4,
                         }}
                     >
                         {recent.length !== 0 &&
                             recent.map((playlist, i) => (
                                 <PlaylistCard
                                     key={i}
+                                    recentPlaylist
+                                    handlePlaylistDelete={handlePlaylistDelete}
                                     playlistItemCount={playlist.playlistItemCount}
                                     playlistId={playlist.playlistId}
-                                    playlistDescription={
-                                        playlist.playlistDescription
-                                    }
                                     playlistName={playlist.playlistName}
                                     playlistThumb={playlist.playlistThumb}
                                     channelName={playlist.channelName}
@@ -59,9 +81,15 @@ const User: React.FC = () => {
                             ))}
                     </SimpleGrid>
                     {recent.length === 0 && (
-                            <Flex justifyContent='center' alignItems='center' width="100%" padding='50px' rounded='md'>
-                                <Text fontSize='16px'>No Playlist Yet</Text>
-                            </Flex>
+                        <Flex
+                            justifyContent="center"
+                            alignItems="center"
+                            width="100%"
+                            padding="50px"
+                            rounded="md"
+                        >
+                            <Text fontSize="16px">No Playlist Yet</Text>
+                        </Flex>
                     )}
                 </Box>
                 <Box className="user_playlists_container">
@@ -72,18 +100,17 @@ const User: React.FC = () => {
                         columns={{
                             base: 1,
                             md: 2,
-                            lg: 3,
+                            lg: 4,
                         }}
                     >
                         {playlists.length !== 0 &&
                             playlists.map((playlist, i) => (
                                 <PlaylistCard
+                                    recentPlaylist={false}
+                                    handlePlaylistDelete={handlePlaylistDelete}
                                     key={i}
                                     playlistItemCount={playlist.playlistItemCount}
                                     playlistId={playlist.playlistId}
-                                    playlistDescription={
-                                        playlist.playlistDescription
-                                    }
                                     playlistName={playlist.playlistName}
                                     playlistThumb={playlist.playlistThumb}
                                     channelName={playlist.channelName}
@@ -95,10 +122,16 @@ const User: React.FC = () => {
                             ))}
                     </SimpleGrid>
                     {playlists.length === 0 && (
-                            <Flex justifyContent='center' alignItems='center' width="100%" padding='50px' rounded='md'>
-                                <Text fontSize='16px'>No Playlist Yet</Text>
-                            </Flex>
-                        )}
+                        <Flex
+                            justifyContent="center"
+                            alignItems="center"
+                            width="100%"
+                            padding="50px"
+                            rounded="md"
+                        >
+                            <Text fontSize="16px">No Playlist Yet</Text>
+                        </Flex>
+                    )}
                 </Box>
             </Container>
         </div>

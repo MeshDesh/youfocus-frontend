@@ -1,3 +1,9 @@
 .playlist_container {
-    padding: 10px;
+    padding: 0px;
+    height: auto;
+    margin-bottom: 100px;
+    .load_more_btn{
+        font-weight: 500;
+        font-size: 12px;
+    }
 }

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, MouseEventHandler, SetStateAction } from "react";
 
 export interface VideoModel{
     id: string,
@@ -20,11 +20,17 @@ export interface PlaylistInfo{
     playlistId: string,
     playlistName:string,
     playlistThumb:string,
-    playlistDescription: string,
     channelName: string
 }
 
+export interface PlaylistCardProps extends PlaylistInfo{
+    recentPlaylist: boolean,
+    handlePlaylistDelete: Function
+}
+
 export interface PlaylistContainerProps{
+    params: PlaylistParams,
+    handleLoadMore: MouseEventHandler,
     fetching:boolean,
     videos: Array<VideoModel>,
     videoIndex: number,

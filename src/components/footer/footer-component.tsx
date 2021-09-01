@@ -8,6 +8,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons"
 
 const Footer: React.FC = () => {
     const {colorMode, toggleColorMode} = useColorMode()
+    
     const footerTheme = {
         bg: useColorModeValue('white', 'black'),
         text: useColorModeValue('#4f4f4f', 'white')
@@ -41,7 +42,7 @@ const Footer: React.FC = () => {
                 </VStack>
             </Stack>
             <Box className='footer_controls'>
-                <IconButton className='theme_control' aria-label='icon' width='20px' onClick={toggleColorMode} size='lg' icon={colorMode === 'dark' ? <MoonIcon/> : <SunIcon/>}/>
+                <IconButton backgroundColor='blackAlpha' rounded='full' className='theme_control' aria-label='icon' width='20px' onClick={toggleColorMode} size='lg' icon={colorMode === 'dark' ? <MoonIcon/> : <SunIcon/>}/>
                 <Text>Made with <FontAwesomeIcon icon={faHeart} /> in <strong>India</strong></Text>
             </Box>
         </Flex>

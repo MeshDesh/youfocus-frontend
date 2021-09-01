@@ -73,12 +73,6 @@ const Navbar: React.FC = () => {
                 mt={{ base: 4, md: 0 }}
                 className="navlinks"
             >
-                <NavLink to="/about">
-                    <Text> About </Text>
-                </NavLink>
-                <NavLink to="/team">
-                    <Text> Team </Text>
-                </NavLink>
                 <a href="https://producthunt.com" target="_blank" rel="noreferrer">
                     <Button
                         className="btn product_hunt_btn"

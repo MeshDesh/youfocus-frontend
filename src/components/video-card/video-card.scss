@@ -1,24 +1,24 @@
 .video_card {
     cursor: pointer;
-    padding: 5px;
     overflow: hidden;
-    height: 180px !important;
+    width: auto;
     .video_thumbnail {
-        height: 90px;
-        width: 120px;
+        height: 150px;
+        width: 100%;
         img {
             height: inherit;
             width: inherit;
             object-fit: cover;
         }
     }
-    .video_title {
-        font-size: 14px;
-        margin: 10px 0px;
-        font-family: 'Inter', sans-serif;
-        font-weight: 500 !important;
+    .video_info {
+        padding: 10px;
+        margin: 0px 10px;
+        .video_title {
+            font-size: 15px;
+            margin: 10px 0px;
+            font-family: "Inter", sans-serif;
+            font-weight: 500 !important;
+        }
     }
-}
-.selected{
-    border: 1px solid;
 }
