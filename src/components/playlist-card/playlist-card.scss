@@ -21,7 +21,7 @@
         > img {
             height: inherit;
             width: inherit;
-            object-fit: contain;
+            object-fit: cover;
         }
         .playlist_options{
             font-family: 'Inter', sans-serif;
@@ -31,10 +31,12 @@
         margin: 10px;
         .playlist_name {
             font-weight: 500;
+            margin-bottom: 5px;
             font-size: 14px;
             font-family: "Inter", sans-serif;
         }
         .playlist_count{
+            margin-bottom: 10px;
             font-size: 13px;
         }
         .playlist_channel {

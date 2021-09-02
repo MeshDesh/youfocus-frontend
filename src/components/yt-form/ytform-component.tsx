@@ -11,8 +11,7 @@ import {
     UnorderedList,
     Flex,
 } from "@chakra-ui/react"
-import React, { useEffect } from "react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 import CustomModal from "../modal/modal-component"
 import "./ytform.scss"
@@ -55,7 +54,6 @@ const YoutubeForm: React.FC = () => {
             setDisabled(true)
             setLoading(true)
             var playlistId = getPlaylistId(url)
-            console.log(playlistId)
             localStorage.setItem('rememberMe', JSON.stringify(true))
             history.push(`/player/${playlistId}`)
             setLoading(false)

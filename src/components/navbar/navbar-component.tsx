@@ -8,7 +8,6 @@ import {
     Badge,
     useColorModeValue,
     Container,
-    Heading,
     Input,
 } from "@chakra-ui/react"
 import React from "react"

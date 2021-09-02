@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react"
+import { Badge, Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react"
 import React from "react"
 import { VideoCardProps } from "../../interfaces"
 import "./video-card.scss"
@@ -22,7 +22,10 @@ const VideoCard: React.FC<VideoCardProps> = ({
     return (
         <Flex
             rounded='md'
+            maxHeight='32rem'
             alignItems='flex-start'
+            justifyContent='flex-start'
+            justifyItems='flex-start'
             backgroundColor={isSelected ? videoCardTheme.selected.bg  : videoCardTheme.bg}
             direction={{ base: "row", md: "column" }}
             onClick={selectVideo}
@@ -33,8 +36,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
                 <img src={thumbnail} alt={thumbnail} />
             </Box>
             <Box className='video_info'>
+                {isSelected && <Badge variant='solid' colorScheme='green' padding={2} marginLeft='10px'>Playing Now</Badge>}
                 <Heading className="video_title">{title.slice(0, 50)}...</Heading>
-                <Text>{channelName}</Text>
+                <Text className='video_channel_name'>{channelName}</Text>
             </Box>
         </Flex>
     )

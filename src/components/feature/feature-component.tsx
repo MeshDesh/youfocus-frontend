@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Heading, SimpleGrid, Text, useColorMode, useColorModeValue } from "@chakra-ui/react"
+import { Box, Container, Grid, Heading, Text, useColorModeValue } from "@chakra-ui/react"
 import React from "react"
 import GuyInChairImg from "../../assets/chair_guy.svg"
 import PlayerImg from "../../assets/player.svg"

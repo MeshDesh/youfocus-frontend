@@ -40,5 +40,16 @@ export interface PlaylistContainerProps{
 
 export interface PlaylistParams{
     playlistId?: string,
-    pageToken?: string | any
+    pageToken?: string | undefined
+}
+
+export interface PlaylistGridProps{
+    playlists: Array<PlaylistInfo>,
+    handlePlaylistDelete: Function,
+    recentPlaylist: boolean,
+}
+
+export interface UseFetchProps{
+    params: PlaylistParams,
+    setParams: Dispatch<SetStateAction<PlaylistParams>>
 }

@@ -14,7 +14,7 @@ const Homepage: React.FC = () => {
         if (rememberMe === true) {
             history.push("/user")
         }
-    }, [rememberMe])
+    }, [rememberMe, history])
 
     return(
        <React.Fragment>

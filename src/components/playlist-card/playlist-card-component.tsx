@@ -90,10 +90,10 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
                         </MenuList>
                     </Portal>
                 </Menu>
-                <img src={playlistThumb}></img>
+                <img src={playlistThumb} alt={playlistName}></img>
             </Box>
             <NavLink to={`/player/${playlistId}`}>
-                <Stack className="playlist_info" spacing={5}>
+                <Stack className="playlist_info">
                     <Heading className="playlist_name">{playlistName}</Heading>
                     <Text className="playlist_count">
                         {playlistItemCount} Videos

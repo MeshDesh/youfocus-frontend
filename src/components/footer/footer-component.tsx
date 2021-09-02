@@ -1,4 +1,4 @@
-import { Box, color, Container, Flex, HStack, IconButton, Spacer, Stack, Text, useColorMode, useColorModeValue, VStack } from "@chakra-ui/react"
+import { Box, Container, Flex, HStack, IconButton, Stack, Text, useColorMode, useColorModeValue, VStack } from "@chakra-ui/react"
 import React from "react"
 import "./footer.scss"
 import LogoIcon from "../../assets/logo-icon.svg"
@@ -25,16 +25,16 @@ const Footer: React.FC = () => {
                 <img src={LogoIcon} alt="logo"/>
                 <VStack spacing={3} justifyItems='flex-start' alignItems='flex-start'>
                     <HStack className="links">
-                    <a>
+                    <a href='/'>
                         <Text>About</Text>
                     </a>
-                    <a>
+                    <a href='/'>
                         <Text>Team</Text>
                     </a>    
-                    <a>
+                    <a href='/'>
                         <Text>Privacy</Text>
                     </a>    
-                    <a>
+                    <a href='/'>
                         <Text>Terms</Text>
                     </a>  
                     </HStack>  
