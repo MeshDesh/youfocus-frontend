@@ -29,7 +29,6 @@ const useFetch = ({ params, setParams }: UseFetchProps) => {
                 setVideos(playlistData.videos)
             } catch (error) {
                 console.log(error)
-                setError(error)
             }
         }
 

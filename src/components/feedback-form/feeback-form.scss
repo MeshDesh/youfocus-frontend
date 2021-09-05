@@ -1,0 +1,16 @@
+.feedback_form {
+    font-size: 14px;
+    .rating {
+        margin: 0px 20px;
+        .rated {
+            color: red;
+        }
+        .unrated {
+            color: #90cdf4;
+        }
+        .heart {
+            margin: 0px 5px;
+            font-size: 20px;
+        }
+    }
+}

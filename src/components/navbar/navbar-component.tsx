@@ -8,7 +8,6 @@ import {
     Badge,
     useColorModeValue,
     Container,
-    Input,
 } from "@chakra-ui/react"
 import React from "react"
 import "./navbar.scss"
@@ -17,6 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faProductHunt } from "@fortawesome/free-brands-svg-icons"
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"
 import CustomModal from "../modal/modal-component"
+import FeedbackForm from "../feedback-form/feedback-form-component"
 
 const Navbar: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -98,9 +98,7 @@ const Navbar: React.FC = () => {
         </Flex>
         </Container>
         <CustomModal isOpen={isModalOpen} onClose={onModalClose} title="Provide Feedback">
-           <form>
-            <Input id='name' placeholder='email' type='email'></Input> 
-           </form>
+            <FeedbackForm/>
         </CustomModal>
         </nav>
     )
