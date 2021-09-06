@@ -2,6 +2,7 @@
 
 .yt_input{
     margin: 20px 0px;
+    font-family: 'Inter', sans-serif;
     .yt_input_field{
         height: 40px;
         font-size: 14px;
@@ -24,6 +25,7 @@
         background-color: $color-focus-red;
         width: 200px;
         margin: 0px 10px;
+        font-weight: 500;
         display: flex;
         justify-content: center;
         align-items: center;

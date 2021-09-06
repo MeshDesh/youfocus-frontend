@@ -22,7 +22,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
     return (
         <Flex
             rounded='md'
-            maxHeight='32rem'
+            minheight='30rem'
             alignItems='flex-start'
             justifyContent='flex-start'
             justifyItems='flex-start'

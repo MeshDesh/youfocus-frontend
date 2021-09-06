@@ -32,6 +32,7 @@ const useFetch = ({ params, setParams }: UseFetchProps) => {
             }
         }
 
+        console.log(process.env.REACT_APP_BACKEND_BASE_URL)
         getPlaylist(params)
     }, [])
 

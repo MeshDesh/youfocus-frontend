@@ -29,7 +29,8 @@
         padding: 10px;
         background: $color-focus-red;
         &:hover, &:active, &:focus{
-            color: $color-black;
+            color: $color-white;
+            background-color: $color-black;
         }
         .ph_icon {
             align-items: flex-start;

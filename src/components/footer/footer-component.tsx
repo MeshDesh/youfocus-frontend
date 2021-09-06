@@ -2,13 +2,11 @@ import {
     Box,
     Container,
     Flex,
-    HStack,
     IconButton,
     Stack,
     Text,
     useColorMode,
     useColorModeValue,
-    VStack,
 } from "@chakra-ui/react"
 import React from "react"
 import "./footer.scss"
@@ -39,20 +37,21 @@ const Footer: React.FC = () => {
                         </Text>
                     </Stack>
                     <Box className="footer_controls">
+                        <Text>
+                            Made with <FontAwesomeIcon icon={faHeart} /> in{" "}
+                            <strong>India</strong>
+                        </Text>
                         <IconButton
                             backgroundColor="blackAlpha"
                             rounded="full"
                             className="theme_control"
                             aria-label="icon"
                             width="20px"
+                            margin="0px 10px"
                             onClick={toggleColorMode}
                             size="lg"
                             icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
                         />
-                        <Text>
-                            Made with <FontAwesomeIcon icon={faHeart} /> in{" "}
-                            <strong>India</strong>
-                        </Text>
                     </Box>
                 </Flex>
             </Container>

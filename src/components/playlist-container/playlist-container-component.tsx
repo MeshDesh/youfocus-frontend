@@ -17,6 +17,7 @@ const PlaylistContainer: React.FC<PlaylistContainerProps> = ({
         <SimpleGrid
             columns={{ base: 1, md: 2, lg: 5 }}
             spacing={10}
+            justifyContent='center'
             alignItems="center"
             align="stretch"
             className="playlist_container"
@@ -37,7 +38,7 @@ const PlaylistContainer: React.FC<PlaylistContainerProps> = ({
                       <Skeleton key={i} height="120px" width="auto" />
                   ))}
             {params.pageToken !== undefined ? (
-                <Button className="load_more_btn" onClick={handleLoadMore} p={4}>
+                <Button className="load_more_btn" size='lg' colorScheme='blue'  onClick={handleLoadMore} p={4}>
                     Load More
                 </Button>
             ) : null}

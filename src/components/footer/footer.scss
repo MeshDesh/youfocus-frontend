@@ -1,7 +1,7 @@
 @import '../../styles/abstracts/_variables.scss';
 
 .footer{
-    position: fixed;
+    position: relative;
     padding: 15px;
     width: 100%;
     bottom: 0;
@@ -15,20 +15,17 @@
             font-weight: 500;
         }
     }
-    .copy{
-        margin: 0px 10px;
-    }
     .footer_controls{
         margin: 0px 5px;
         display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: flex-end;
+        flex-direction: row;
+        flex-wrap: wrap-reverse;
+        justify-content: flex-start;
+        align-items: center;
         font-size: 12px;
         font-family: 'Inter', sans-serif;
         .theme_control{
             border: 0.5px solid #F7FAFC;
-            margin-bottom: 10px;
         }
     }
 }
