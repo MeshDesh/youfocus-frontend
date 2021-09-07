@@ -7,7 +7,6 @@ import {
     Text,
     Flex,
     Button,
-    useClipboard,
     useToast,
     Alert,
     AlertIcon,
@@ -16,6 +15,7 @@ import {
 import React, { useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
 import YouTube, { Options } from "react-youtube"
+import useCopy from "../../hooks/useCopy"
 import useFetch from "../../hooks/useFetch"
 import { PlaylistParams } from "../../interfaces"
 import PlaylistContainer from "../playlist-container/playlist-container-component"
@@ -28,28 +28,11 @@ const Player: React.FC = () => {
         playlistId: playlistId,
         pageToken: "",
     })
-    const { onCopy } = useClipboard(window.location.href)
-    const toast = useToast()
+    const { handleCopy } = useCopy(window.location.href)
     const { videos, playlist, fetching, handleLoadMore } = useFetch({
         params,
         setParams,
     })
-
-    const handleCopy = () => {
-        onCopy()
-        toast({
-            render: () => (
-                <Alert status="success" variant="solid">
-                    <AlertIcon />
-                    <Text className="alert_text">Playlist Link Copied!</Text>
-                </Alert>
-            ),
-            status: "success",
-            position: "top",
-            duration: 2500,
-            isClosable: true,
-        })
-    }
 
     const opts: Options = {
         height: useBreakpointValue({ base: "360px", md: "540px", lg: "720px" }),
@@ -58,6 +41,7 @@ const Player: React.FC = () => {
             autoplay: 0,
         },
     }
+
     return (
         <React.Fragment>
             <Box className="player_container">

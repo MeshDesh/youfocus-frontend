@@ -10,15 +10,12 @@ import {
     MenuItem,
     Button,
     Portal,
-    useToast,
-    useClipboard,
-    Alert,
-    AlertIcon,
 } from "@chakra-ui/react"
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react"
 import { NavLink } from "react-router-dom"
+import useCopy from "../../hooks/useCopy"
 import { PlaylistCardProps } from "../../interfaces"
 import "./playlist-card.scss"
 
@@ -32,27 +29,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
     channelName,
 }: PlaylistCardProps) => {
 
-
-    const { onCopy } = useClipboard(`${window.location.origin}/player/${playlistId}`)
-    const toast = useToast()
-
-
-    const handleCopy = () => {
-        onCopy()
-        toast({
-            render: () => (
-                <Alert status="success" variant="solid">
-                    <AlertIcon />
-                    <Text className="alert_text">Playlist Link Copied!</Text>
-                </Alert>
-            ),
-            status: "success",
-            position: "top",
-            duration: 2500,
-            isClosable: true,
-        })
-    }
-
+    const { handleCopy }  = useCopy(`${window.location.origin}/player/${playlistId}`)
 
     const playlistCardTheme = {
         bg: useColorModeValue("#F7FAFC", "#2D3748"),

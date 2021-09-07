@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
     Input,
     Flex,
@@ -16,8 +16,9 @@ import axios from "axios"
 
 const FeedbackForm: React.FC = () => {
     const [rating, setRating] = useState(0)
+    const [formError, setFormError] = useState('')
     const [hover, setHover] = useState(0)
-    const [form, setForm] = useState({ email: "", rating: 0, feedbackMessage: "" })
+    const [form, setForm] = useState({ email: "", rating: 1, feedbackMessage: "" })
     const toast  = useToast()
 
     useEffect(() => {
@@ -26,6 +27,10 @@ const FeedbackForm: React.FC = () => {
 
     const handleFeedbackSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
+        if(rating === 0){
+            setFormError('Please Provide A Rating')
+            return false
+        }
         axios
             .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/feedback`, form)
             .then(() => {
@@ -82,7 +87,7 @@ const FeedbackForm: React.FC = () => {
                                         i <= (hover || rating) ? "rated" : "unrated"
                                     }
                                     onClick={() => setRating(i)}
-                                    onMouseEnter={() => setHover(i)}
+                                    onMouseEnter={() =>{ setHover(i); setFormError('')}}
                                     onMouseLeave={() => setHover(rating)}
                                 >
                                     <span className="heart">&#10084;</span>
@@ -91,6 +96,7 @@ const FeedbackForm: React.FC = () => {
                         })}
                     </Box>
                 </Flex>
+                {formError && <p className='error'>{formError}</p>}
                 <Stack spacing={2} direction="column">
                     <label htmlFor="feedback">Feedback Message</label>
                     <Textarea

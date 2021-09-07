@@ -9,7 +9,7 @@ import {
 const useFetch = ({ params, setParams }: UseFetchProps) => {
     const [fetching, setFetching] = useState(false)
     const [videos, setVideos] = useState<Array<VideoModel>>([])
-    const [error, setError] = useState({})
+    const [error, setError] = useState<any | null>({})
     const [playlist, setPlaylist] = useState<Partial<PlaylistInfo>>({})
 
     useEffect(() => {
@@ -32,7 +32,6 @@ const useFetch = ({ params, setParams }: UseFetchProps) => {
             }
         }
 
-        console.log(process.env.REACT_APP_BACKEND_BASE_URL)
         getPlaylist(params)
     }, [])
 
@@ -51,6 +50,8 @@ const useFetch = ({ params, setParams }: UseFetchProps) => {
             const playlistFound = storedPlaylists.find(
                 (a: PlaylistInfo) => a.playlistId === playlist.playlistId
             )
+
+            console.log(playlist)
 
             if (!playlistFound) {
                 storedPlaylists.push(playlist)
@@ -72,7 +73,7 @@ const useFetch = ({ params, setParams }: UseFetchProps) => {
                 setVideos([...videos, ...playlistData.videos])
             })
             .catch((error) => {
-                return error
+                console.log(error)
             })
     }
 

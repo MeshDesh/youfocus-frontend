@@ -30,14 +30,14 @@ const Footer: React.FC = () => {
         >
             <Container maxW="container.xl">
                 <Flex justifyContent="space-between">
-                    <Stack direction={"row"}>
-                        <img src={LogoIcon} alt="logo" />
-                        <Text className="copy">
+                    <Stack direction={"row"} justifyContent='center' alignItems='center'>
+                        <img src={LogoIcon} className='logo' alt="logo" />
+                        <Text className="copy" fontSize='md' fontWeight='medium'>
                             &copy; {new Date().getFullYear()} Meshdesh
                         </Text>
                     </Stack>
                     <Box className="footer_controls">
-                        <Text>
+                        <Text fontSize='md'>
                             Made with <FontAwesomeIcon icon={faHeart} /> in{" "}
                             <strong>India</strong>
                         </Text>
