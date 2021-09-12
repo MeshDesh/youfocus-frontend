@@ -70,7 +70,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
                 <img src={playlistThumb} alt={playlistName}></img>
             </Box>
             <NavLink to={`/player/${playlistId}`}>
-                <Stack className="playlist_info">
+                <Stack className="playlist_info" width='full' p='5'>
                     <Heading className="playlist_name">{playlistName}</Heading>
                     <Text className="playlist_count">
                         {playlistItemCount} Videos

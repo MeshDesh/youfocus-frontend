@@ -54,7 +54,7 @@ const YoutubeForm: React.FC = () => {
             setDisabled(true)
             setLoading(true)
             var playlistId = getPlaylistId(url)
-            localStorage.setItem('rememberMe', JSON.stringify(true))
+            localStorage.setItem("rememberMe", JSON.stringify(true))
             history.push(`/player/${playlistId}`)
             setLoading(false)
         }
@@ -63,7 +63,7 @@ const YoutubeForm: React.FC = () => {
     return (
         <React.Fragment>
             <form onSubmit={handleSubmit}>
-                <InputGroup className="yt_input">
+                <InputGroup display='flex' justifyContent='center' alignItems='center' className="yt_input">
                     <Input
                         placeholder="Enter your playlist url"
                         type="url"
@@ -75,7 +75,7 @@ const YoutubeForm: React.FC = () => {
                     <Button
                         className="add_icon"
                         type="submit"
-                        height="auto"
+                        height="40px"
                         width="50px"
                         isDisabled={disabled}
                         children={
@@ -86,22 +86,21 @@ const YoutubeForm: React.FC = () => {
                             )
                         }
                     />
-                    <a
-                        className="yt_btn"
-                        href="https://www.youtube.com"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Go to Youtube
-                    </a>
+                    <Button margin='0px 5px'  onClick={onOpen} colorScheme="gray" width='50px' height='40px' borderRadius='50px'> 
+                        <QuestionIcon fontSize='14px' />
+                    </Button>
                 </InputGroup>
                 {error && <Text className="error">{error}</Text>}
             </form>
             <Flex alignItems="center">
-                <Button onClick={onOpen} colorScheme="blue">
-                    {" "}
-                    <QuestionIcon /> <Text ml={4}>Valid Urls</Text>{" "}
-                </Button>
+                <a
+                    className="yt_btn"
+                    href="https://www.youtube.com"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Go to Youtube
+                </a>
             </Flex>
             <CustomModal
                 isOpen={isOpen}

@@ -2,22 +2,18 @@ import {
     Box,
     Container,
     Flex,
-    IconButton,
     Stack,
     Text,
-    useColorMode,
     useColorModeValue,
 } from "@chakra-ui/react"
 import React from "react"
 import "./footer.scss"
 import LogoIcon from "../../assets/logo-icon.svg"
-import { MoonIcon, SunIcon } from "@chakra-ui/icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
+import ThemeSwitch from "../theme-switch/theme-switch.component"
 
 const Footer: React.FC = () => {
-    const { colorMode, toggleColorMode } = useColorMode()
-
     const footerTheme = {
         bg: useColorModeValue("white", "black"),
         text: useColorModeValue("#4f4f4f", "white"),
@@ -41,17 +37,6 @@ const Footer: React.FC = () => {
                             Made with <FontAwesomeIcon icon={faHeart} /> in{" "}
                             <strong>India</strong>
                         </Text>
-                        <IconButton
-                            backgroundColor="blackAlpha"
-                            rounded="full"
-                            className="theme_control"
-                            aria-label="icon"
-                            width="20px"
-                            margin="0px 10px"
-                            onClick={toggleColorMode}
-                            size="lg"
-                            icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
-                        />
                     </Box>
                 </Flex>
             </Container>

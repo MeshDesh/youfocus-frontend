@@ -10,7 +10,6 @@
         border-bottom-right-radius: 0px;
     }
     .add_icon{
-        height: auto;
         width: 100px;
         border-top-left-radius: 0px ;
         border-bottom-left-radius: 0px;
@@ -21,18 +20,19 @@
         cursor: pointer;
         align-items: center;
     }
-    .yt_btn{
-        background-color: $color-focus-red;
-        width: 200px;
-        margin: 0px 10px;
-        font-weight: 500;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $color-white;
-        border-radius: 50px;
-        text-align: center;
-    }
+ 
+}
+.yt_btn{
+    background-color: $color-focus-red;
+    width: auto;
+    padding: 10px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-white;
+    border-radius: 50px;
+    text-align: center;
 }
 .error{
     font-family: 'Inter', sans-serif;
