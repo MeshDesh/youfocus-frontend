@@ -29,7 +29,7 @@ const Player: React.FC = () => {
         pageToken: "",
     })
     const { handleCopy } = useCopy(window.location.href)
-    const { videos, playlist, fetching, handleLoadMore } = useFetch({
+    const { videos, playlist, fetching=true, handleLoadMore } = useFetch({
         params,
         setParams,
     })
@@ -58,7 +58,7 @@ const Player: React.FC = () => {
             <Box margin="10px" padding="10px" className="player_ui">
                 <Flex
                     justifyContent="space-between"
-                    alignItems="flex-start"
+                    alignItems="center"
                     className="video_info"
                 >
                     <Box>
@@ -70,7 +70,20 @@ const Player: React.FC = () => {
                                 {videos[videoIndex].title}
                             </Heading>
                         ) : (
-                            <Skeleton height="32px" width="500px" mt={4} mb={4} />
+                            <>
+                                <Skeleton
+                                    height="32px"
+                                    width={{base: 'md', md: 'lg', lg: 'xl'}}
+                                    mt={4}
+                                    mb={4}
+                                />
+                                <Skeleton
+                                    height="32px"
+                                    width='xs'
+                                    mt={4}
+                                    mb={4}
+                                />
+                            </>
                         )}
                         <Spacer />
                         {Object.keys(playlist).length !== 0 && (
@@ -81,7 +94,7 @@ const Player: React.FC = () => {
                     </Box>
                     <Stack
                         direction={{ base: "column", md: "row", lg: "row" }}
-                        justifyItems="flex-start"
+                        justifyItems="end"
                         alignItems="flex-end"
                     >
                         <NavLink to="/">

@@ -54,6 +54,8 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
                         className="options_menu"
                         color='white'
                         backgroundColor='black'
+                        _active={{backgroundColor: 'black'}}
+                        _hover={{backgroundColor: 'black'}}
                     >
                         <FontAwesomeIcon
                             icon={faEllipsisV}

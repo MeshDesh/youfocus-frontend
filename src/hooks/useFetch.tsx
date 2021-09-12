@@ -7,7 +7,7 @@ import {
 } from "../interfaces"
 
 const useFetch = ({ params, setParams }: UseFetchProps) => {
-    const [fetching, setFetching] = useState(false)
+    const [fetching, setFetching] = useState(true)
     const [videos, setVideos] = useState<Array<VideoModel>>([])
     const [error, setError] = useState<any | null>({})
     const [playlist, setPlaylist] = useState<Partial<PlaylistInfo>>({})
