@@ -5,18 +5,25 @@ import {
     Text,
     Button,
     useDisclosure,
+    Menu,
+    MenuList,
+    MenuButton,
+    MenuItem,
+    MenuGroup,
     Badge,
+    Avatar,
     useColorModeValue,
     Container,
 } from "@chakra-ui/react"
-import React from "react"
+import React, { useEffect } from "react"
 import "./navbar.scss"
-import { NavLink } from "react-router-dom"
+import { NavLink, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle, faProductHunt } from "@fortawesome/free-brands-svg-icons"
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"
 import CustomModal from "../modal/modal-component"
 import FeedbackForm from "../feedback-form/feedback-form-component"
+import useAuth from "../../hooks/useAuth"
 
 const Navbar: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -26,12 +33,31 @@ const Navbar: React.FC = () => {
         onClose: onModalClose,
     } = useDisclosure()
 
+    const { handleSignIn, user, signOut, isFirstLogin } = useAuth()
+    const history = useHistory()
+
+    useEffect(() => {
+        if (isFirstLogin) {
+            history.push("/onboarding")
+        }
+    }, [isFirstLogin])
+
     const {
         isOpen: isLoginOpen,
         onOpen: onLoginOpen,
         onClose: onLoginClose,
     } = useDisclosure()
 
+    const handleLogin = () => {
+        handleSignIn()
+        onLoginClose()
+    }
+
+    const handleLogout = () => {
+        signOut()
+        localStorage.setItem('rememberMe', JSON.stringify(false))
+        history.push('/')
+    }
     const menuToggle = () => {
         isOpen ? onClose() : onOpen()
     }
@@ -50,7 +76,11 @@ const Navbar: React.FC = () => {
                     wrap="wrap"
                     className="navbar"
                 >
-                    <Flex align="flex-end" direction='column' justifyItems="flex-end">
+                    <Flex
+                        align="flex-end"
+                        direction="column"
+                        justifyItems="flex-end"
+                    >
                         <Badge colorScheme="green" p="0" m={0} rounded={"base"}>
                             beta
                         </Badge>
@@ -86,14 +116,16 @@ const Navbar: React.FC = () => {
                         mt={{ base: 4, md: 0 }}
                         className="navlinks"
                     >
-                        <Button
-                            onClick={onLoginOpen}
-                            colorScheme="blue"
-                            className="btn feedback_btn"
-                            boxShadow="sm"
-                        >
-                            <Text fontSize="lg">Login</Text>
-                        </Button>
+                        {!user ? (
+                            <Button
+                                onClick={onLoginOpen}
+                                colorScheme="blue"
+                                className="btn feedback_btn"
+                                boxShadow="sm"
+                            >
+                                <Text fontSize="lg">Login</Text>
+                            </Button>
+                        ) : null}
 
                         <Button
                             onClick={onModalOpen}
@@ -102,6 +134,21 @@ const Navbar: React.FC = () => {
                         >
                             <Text>Provide Feedback</Text>
                         </Button>
+                        {user ? (
+                            <Menu>
+                                <MenuButton>
+                                    <Avatar
+                                        src={user.avatar}
+                                        name={user.name}
+                                    ></Avatar>
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem onClick={handleLogout}>
+                                        Logout
+                                    </MenuItem>
+                                </MenuList>
+                            </Menu>
+                        ) : null}
                     </Stack>
                 </Flex>
             </Container>
@@ -117,10 +164,7 @@ const Navbar: React.FC = () => {
                 onClose={onLoginClose}
                 title="Login for More Features!"
             >
-                {/* <Button colorScheme='red' padding={8} width='100%' onClick={signInWithGoogle}>
-                    <Text margin='0px 10px' fontSize='xl'> Signin with Google </Text> <FontAwesomeIcon size='2x' icon={faGoogle}></FontAwesomeIcon>
-                </Button> */}
-                <Text>Hello</Text>
+                <Button onClick={handleLogin}>Login With Google</Button>
             </CustomModal>
         </nav>
     )

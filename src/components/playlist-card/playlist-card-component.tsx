@@ -32,7 +32,8 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
     const { handleCopy }  = useCopy(`${window.location.origin}/player/${playlistId}`)
 
     const playlistCardTheme = {
-        bg: useColorModeValue("#F7FAFC", "#2D3748"),
+        bg: useColorModeValue("#CBD5E0", "#2D3748"),
+        // text: useColorModeValue('')
     }
 
     return (

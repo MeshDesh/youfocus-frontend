@@ -6,7 +6,7 @@ import {
     UseFetchProps,
 } from "../interfaces"
 
-const useFetch = ({ params, setParams }: UseFetchProps) => {
+const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
     const [fetching, setFetching] = useState(true)
     const [videos, setVideos] = useState<Array<VideoModel>>([])
     const [error, setError] = useState<any | null>({})
@@ -81,4 +81,4 @@ const useFetch = ({ params, setParams }: UseFetchProps) => {
     return { playlist, error, fetching, videos, handleLoadMore }
 }
 
-export default useFetch
+export default usePlaylistFetch

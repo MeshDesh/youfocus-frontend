@@ -7,16 +7,13 @@ import {
     Text,
     Flex,
     Button,
-    useToast,
-    Alert,
-    AlertIcon,
     Stack,
 } from "@chakra-ui/react"
 import React, { useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
 import YouTube, { Options } from "react-youtube"
 import useCopy from "../../hooks/useCopy"
-import useFetch from "../../hooks/useFetch"
+import usePlaylistFetch from "../../hooks/usePlaylistFetch"
 import { PlaylistParams } from "../../interfaces"
 import PlaylistContainer from "../playlist-container/playlist-container-component"
 import "./player.scss"
@@ -29,7 +26,7 @@ const Player: React.FC = () => {
         pageToken: "",
     })
     const { handleCopy } = useCopy(window.location.href)
-    const { videos, playlist, fetching=true, handleLoadMore } = useFetch({
+    const { videos, playlist, fetching=true, handleLoadMore } = usePlaylistFetch({
         params,
         setParams,
     })

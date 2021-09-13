@@ -1,0 +1,14 @@
+.onboarding_base{
+    display: flex;
+    flex-direction: column;
+    margin: 200px 0px;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    form{
+        label, .form_input{
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+}
