@@ -20,10 +20,10 @@ const CustomModal: React.FC<ModalProps> = ({
     return (
         <Modal size='xl'  isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent className='modal'>
-                <ModalHeader>{title}</ModalHeader>
+            <ModalContent justifyContent='center' alignItems='center' className='modal'>
+                <ModalHeader fontSize='16px'>{title}</ModalHeader>
                 <ModalCloseButton padding='10px' margin='10px'  />
-                <ModalBody>
+                <ModalBody width='100%'>
                     {children}
                 </ModalBody>
             </ModalContent>

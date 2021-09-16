@@ -94,7 +94,7 @@ const Player: React.FC = () => {
                         justifyItems="end"
                         alignItems="flex-end"
                     >
-                        <NavLink to="/">
+                        <NavLink to="/my-playlists">
                             <Button colorScheme="red" fontSize="12px">
                                 Home
                             </Button>

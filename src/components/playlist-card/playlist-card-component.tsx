@@ -33,7 +33,6 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
 
     const playlistCardTheme = {
         bg: useColorModeValue("#CBD5E0", "#2D3748"),
-        // text: useColorModeValue('')
     }
 
     return (

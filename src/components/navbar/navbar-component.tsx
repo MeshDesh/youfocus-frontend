@@ -15,15 +15,15 @@ import {
     useColorModeValue,
     Container,
 } from "@chakra-ui/react"
-import React, { useEffect } from "react"
+import React from "react"
 import "./navbar.scss"
 import { NavLink, useHistory } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGoogle, faProductHunt } from "@fortawesome/free-brands-svg-icons"
+import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"
 import CustomModal from "../modal/modal-component"
 import FeedbackForm from "../feedback-form/feedback-form-component"
-import useAuth from "../../hooks/useAuth"
+import { useAuth } from "../../hooks/useAuth"
 
 const Navbar: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -32,15 +32,10 @@ const Navbar: React.FC = () => {
         onOpen: onModalOpen,
         onClose: onModalClose,
     } = useDisclosure()
-
-    const { handleSignIn, user, signOut, isFirstLogin } = useAuth()
+    const auth = useAuth()
+    const { user } = auth!;
     const history = useHistory()
-
-    useEffect(() => {
-        if (isFirstLogin) {
-            history.push("/onboarding")
-        }
-    }, [isFirstLogin])
+    const guestMode = localStorage.getItem('guestMode');
 
     const {
         isOpen: isLoginOpen,
@@ -49,14 +44,13 @@ const Navbar: React.FC = () => {
     } = useDisclosure()
 
     const handleLogin = () => {
-        handleSignIn()
+        auth?.handleSignIn()
         onLoginClose()
     }
 
     const handleLogout = () => {
-        signOut()
-        localStorage.setItem('rememberMe', JSON.stringify(false))
-        history.push('/')
+        auth?.handleSignOut()
+        history.push("/")
     }
     const menuToggle = () => {
         isOpen ? onClose() : onOpen()
@@ -84,7 +78,7 @@ const Navbar: React.FC = () => {
                         <Badge colorScheme="green" p="0" m={0} rounded={"base"}>
                             beta
                         </Badge>
-                        <NavLink to="/">
+                        <NavLink to={user || guestMode === 'true' ? '/my-playlists' : '/'}>
                             <Text
                                 as="h1"
                                 size="xl"
@@ -95,61 +89,67 @@ const Navbar: React.FC = () => {
                             </Text>
                         </NavLink>
                     </Flex>
-
-                    <Box
-                        display={{ base: "block", md: "none" }}
-                        onClick={menuToggle}
-                        cursor="pointer"
-                    >
-                        <FontAwesomeIcon
-                            icon={isOpen ? faTimes : faBars}
-                            size="2x"
-                        />
-                    </Box>
-
-                    <Stack
-                        direction={{ base: "column", md: "row" }}
-                        display={{ base: isOpen ? "block" : "none", md: "flex" }}
-                        width={{ base: "full", md: "auto" }}
-                        alignItems="center"
-                        spacing={5}
-                        mt={{ base: 4, md: 0 }}
-                        className="navlinks"
-                    >
-                        {!user ? (
-                            <Button
-                                onClick={onLoginOpen}
-                                colorScheme="blue"
-                                className="btn feedback_btn"
-                                boxShadow="sm"
+                    {user === null ? (
+                        <>
+                            <Box
+                                display={{ base: "block", md: "none" }}
+                                onClick={menuToggle}
+                                cursor="pointer"
                             >
-                                <Text fontSize="lg">Login</Text>
-                            </Button>
-                        ) : null}
-
-                        <Button
-                            onClick={onModalOpen}
-                            className="btn feedback_btn"
-                            boxShadow="sm"
-                        >
-                            <Text>Provide Feedback</Text>
-                        </Button>
-                        {user ? (
-                            <Menu>
-                                <MenuButton>
-                                    <Avatar
-                                        src={user.avatar}
-                                        name={user.name}
-                                    ></Avatar>
-                                </MenuButton>
-                                <MenuList>
-                                    <MenuItem onClick={handleLogout}>
-                                        Logout
-                                    </MenuItem>
-                                </MenuList>
-                            </Menu>
-                        ) : null}
-                    </Stack>
+                                <FontAwesomeIcon
+                                    icon={isOpen ? faTimes : faBars}
+                                    size="2x"
+                                />
+                            </Box>
+                            <Stack
+                                direction={{ base: "column", md: "row" }}
+                                display={{
+                                    base: isOpen ? "block" : "none",
+                                    md: "flex",
+                                }}
+                                width={{ base: "full", md: "auto" }}
+                                alignItems="center"
+                                spacing={5}
+                                mt={{ base: 4, md: 0 }}
+                                className="navlinks"
+                            >
+                                <Button
+                                    onClick={onModalOpen}
+                                    className="btn feedback_btn"
+                                    boxShadow="sm"
+                                >
+                                    <Text>Provide Feedback</Text>
+                                </Button>
+                                <Button
+                                    onClick={onLoginOpen}
+                                    colorScheme="teal"
+                                    size='lg'
+                                    rounded='full'
+                                    boxShadow="sm"
+                                >
+                                    <Text fontSize="lg">Login</Text>
+                                </Button>
+                            </Stack>
+                        </>
+                    ) : (
+                        <Menu>
+                            <MenuButton>
+                                <Avatar
+                                    size='md'
+                                    src={user.avatar}
+                                    name={user.name}
+                                ></Avatar>
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem as="a" href="/user">
+                                    <Text fontSize="xl">My Playlists</Text>
+                                </MenuItem>
+                                <MenuItem fontSize="xl" onClick={handleLogout}>
+                                    Logout
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
+                    )}
                 </Flex>
             </Container>
             <CustomModal
@@ -164,7 +164,10 @@ const Navbar: React.FC = () => {
                 onClose={onLoginClose}
                 title="Login for More Features!"
             >
-                <Button onClick={handleLogin}>Login With Google</Button>
+                <Button onClick={handleLogin} size="lg" width="100%">
+                    <FontAwesomeIcon icon={faGoogle} />
+                    <Text margin="0px 10px">Login with Google</Text>
+                </Button>
             </CustomModal>
         </nav>
     )

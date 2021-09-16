@@ -1,10 +1,6 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import {
-    VideoModel,
-    PlaylistInfo,
-    UseFetchProps,
-} from "../interfaces"
+import { VideoModel, PlaylistInfo, UseFetchProps } from "../interfaces"
 
 const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
     const [fetching, setFetching] = useState(true)
@@ -35,7 +31,6 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
         getPlaylist(params)
     }, [])
 
-
     useEffect(() => {
         if (Object.keys(playlist).length !== 0 && playlist.constructor === Object) {
             const storedPlaylists =
@@ -56,11 +51,10 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
             if (!playlistFound) {
                 storedPlaylists.push(playlist)
             }
-            
+
             localStorage.setItem("playlists", JSON.stringify(storedPlaylists))
         }
     }, [playlist])
-
 
     const handleLoadMore = async () => {
         setFetching(true)
@@ -76,7 +70,6 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
                 console.log(error)
             })
     }
-
 
     return { playlist, error, fetching, videos, handleLoadMore }
 }

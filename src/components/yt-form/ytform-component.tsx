@@ -54,7 +54,7 @@ const YoutubeForm: React.FC = () => {
             setDisabled(true)
             setLoading(true)
             var playlistId = getPlaylistId(url)
-            localStorage.setItem("rememberMe", JSON.stringify(true))
+            localStorage.setItem("guestMode", JSON.stringify(true))
             history.push(`/player/${playlistId}`)
             setLoading(false)
         }

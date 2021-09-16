@@ -65,11 +65,12 @@ const FeedbackForm: React.FC = () => {
         <form className="feedback_form" onSubmit={handleFeedbackSubmit}>
             <Stack spacing={4}>
                 <Flex>
-                    <label htmlFor="email">Your Email</label>
+                    <label htmlFor="email">Email</label>
                     <Input
                         name="email"
                         onChange={(e) => setForm({ ...form, email: e.target.value })}
                         size="lg"
+                        margin='0px 10px'
                         type="text"
                         id="email"
                     ></Input>

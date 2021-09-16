@@ -13,14 +13,15 @@ import {
 import axios from "axios"
 import React, { useState } from "react"
 import { useHistory } from "react-router"
-import useAuth from "../../hooks/useAuth"
+import { useAuth } from "../../hooks/useAuth"
 import "./Onboarding.scss"
 
 const OnboardingComponent: React.FC = () => {
-    const { user } = useAuth()
     const [form, setForm] = useState({ profession: "", isLearning: true })
     const [formError, setFormError] = useState("")
     const history = useHistory()
+    const auth = useAuth()
+    const { user } = auth!
     const theme = {
         bg: useColorModeValue("#E2E8F0", "#171923"),
         text: useColorModeValue("black", "white"),
@@ -135,7 +136,7 @@ const OnboardingComponent: React.FC = () => {
                                 variant="filled"
                                 width="lg"
                             >
-                                <option selected value="yes">
+                                <option defaultValue='yes' value="yes">
                                     Yes
                                 </option>
                                 <option value="no">No</option>

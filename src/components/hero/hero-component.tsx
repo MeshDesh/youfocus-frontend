@@ -5,11 +5,11 @@ import HeroImg from "../../assets/hero.png"
 import YoutubeForm from "../yt-form/ytform-component"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGoogle } from "@fortawesome/free-brands-svg-icons"
-import useAuth from "../../hooks/useAuth"
+import { useAuth } from "../../hooks/useAuth"
 
 const Hero: React.FC = () => {
     const [guestMode, setGuestMode] = useState(false)
-    const {handleSignIn} = useAuth()
+    const auth = useAuth()
     const handleGuestMode = () => {
         setGuestMode(!guestMode)
     }
@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
                             Continue As Guest
                         </Button>
                         <Text margin='0px 10px'>Or</Text>
-                        <Button onClick={handleSignIn} colorScheme='red' size='lg'>
+                        <Button onClick={auth?.handleSignIn} colorScheme='red' size='lg'>
                             <FontAwesomeIcon icon={faGoogle}/> <Text margin='0px 10px'>Login with Google</Text>
                         </Button>
                     </Flex>
