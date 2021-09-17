@@ -1,0 +1,28 @@
+.video_card {
+    cursor: pointer;
+    overflow: hidden;
+    width: auto;
+    .video_thumbnail {
+        height: 100%;
+        width: 100%;
+        img {
+            height: inherit;
+            width: inherit;
+            object-fit: cover;
+        }
+    }
+    .video_info {
+        padding: 5px;
+        margin: 10px;
+        .video_title {
+            font-size: 15px;
+            max-width: 300px;
+            margin: 10px 10px;
+            font-family: "Inter", sans-serif;
+            font-weight: 500 !important;
+        }
+        .video_channel_name{
+            margin: 10px 10px;
+        }
+    }
+}

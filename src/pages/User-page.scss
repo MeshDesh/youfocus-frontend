@@ -1,0 +1,16 @@
+.user_page{
+    margin: 10px 0px;
+    padding: 20px;
+    .user_page_form{
+        padding: 10px;
+        max-width: 500px;
+        .yt_form_heading{
+            font-size: 14px !important;
+        }
+    }
+    .yt_form_heading{
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500;
+        font-size: 18px;
+    }
+}

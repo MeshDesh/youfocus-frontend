@@ -1,0 +1,49 @@
+.playlist_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 5px;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+    transition: all 0.2s ease-in-out;
+    .options_menu{
+        margin: 5px;
+        position: absolute;
+    }
+    .playlist_thumb {
+        overflow: hidden;
+        display: flex;
+        justify-content: flex-end;
+        height: 150px;
+        width: 100%;
+        background-color: black;
+        > img {
+            height: inherit;
+            width: inherit;
+            object-fit: cover;
+        }
+        .playlist_options{
+            font-family: 'Inter', sans-serif;
+        }
+    }
+    .playlist_info {
+        margin: 10px 0px;
+        .playlist_name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-family: "Inter", sans-serif;
+        }
+        .playlist_count{
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        .playlist_channel {
+            font-size: 12px;
+        }
+    }
+    &:hover {
+        transform: scale(1.02);
+    }
+}
