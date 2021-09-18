@@ -11,17 +11,36 @@ import {
     useToast,
 } from "@chakra-ui/react"
 import axios from "axios"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router"
 import { useAuth } from "../../hooks/useAuth"
 import "./Onboarding.scss"
 
+const FieldOptions = [
+    "Developer",
+    "Designer",
+    "Marketing",
+    "Sales",
+    "Student",
+    "Other",
+]
+
 const OnboardingComponent: React.FC = () => {
-    const [form, setForm] = useState({ profession: "", isLearning: true })
-    const [formError, setFormError] = useState("")
+    const [form, setForm] = useState({ fieldOfWork: FieldOptions[0], isLearning: true })
     const history = useHistory()
     const auth = useAuth()
     const { user } = auth!
+
+    useEffect(() => {
+        if(user === null){
+            history.push('/')
+        }
+    },[user])
+
+    useEffect(() => {
+        console.log(form)
+    }, [form])
+
     const theme = {
         bg: useColorModeValue("#E2E8F0", "#171923"),
         text: useColorModeValue("black", "white"),
@@ -31,10 +50,6 @@ const OnboardingComponent: React.FC = () => {
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
-        if (form.profession === "") {
-            setFormError("Please provide a profession")
-            return false
-        }
         axios
             .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/onboarding`, {
                 form,
@@ -58,7 +73,7 @@ const OnboardingComponent: React.FC = () => {
                     ),
                     isClosable: true,
                 })
-                history.push('/playlists')
+                history.push("/playlists")
             })
             .catch((error) => {
                 toast({
@@ -84,39 +99,55 @@ const OnboardingComponent: React.FC = () => {
     return (
         <div className="onboarding_base">
             <Box
-                width="auto"
+                maxWidth="800px"
                 padding={10}
                 rounded="md"
+                height="auto"
                 background={theme.bg}
                 color={theme.text}
             >
                 <form onSubmit={handleSubmit}>
-                    <Stack spacing="5" justifyContent="flex-end" alignItems='flex-end'>
+                    <Stack
+                        spacing="5"
+                        margin="10px 0px"
+                        justifyContent="flex-end"
+                        alignItems="flex-start"
+                    >
+                        <Box margin="10px 0px">
+                            <Text as="h1" fontSize="24px">
+                                Welcome to Playfocus
+                            </Text>
+                            <Text as="h4" fontSize="lg">
+                                Please provide few details
+                            </Text>
+                        </Box>
                         <div>
                             <label htmlFor="profession">
-                                What is your profession?
+                                What is your field of work?
                             </label>
-                            <Input
+                            <Select
+                                cursor="pointer"
                                 margin="10px 0px"
-                                display='block'
-                                width="lg"
-                                padding="10px"
-                                className="form_input"
+                                onChange={(e) =>
+                                    setForm({
+                                        ...form,
+                                        fieldOfWork: e.target.value,
+                                    })
+                                }
                                 size="lg"
                                 variant="filled"
-                                onChange={(e) => {
-                                    setFormError("")
-                                    setForm({ ...form, profession: e.target.value })
-                                }}
-                                type="text"
-                                name="profession"
-                                placeholder="ex: Frontend Developer, Student etc."
-                            ></Input>
-                            {formError !== "" && (
-                                <Text className="error" fontSize="lg">
-                                    {formError}
-                                </Text>
-                            )}
+                                width="lg"
+                            >
+                                {FieldOptions.map((option, i) => (
+                                    <option
+                                        key={i}
+                                        defaultValue={FieldOptions[0]}
+                                        value={option}
+                                    >
+                                        {option}
+                                    </option>
+                                ))}
+                            </Select>
                         </div>
                         <div>
                             <label htmlFor="learning">
@@ -136,20 +167,27 @@ const OnboardingComponent: React.FC = () => {
                                 variant="filled"
                                 width="lg"
                             >
-                                <option defaultValue='yes' value="yes">
+                                <option defaultValue="yes" value="yes">
                                     Yes
                                 </option>
                                 <option value="no">No</option>
                             </Select>
                         </div>
-                        <Button
-                            type="submit"
-                            width="100px"
-                            size="lg"
-                            colorScheme="blue"
+                        <Box
+                            display="flex"
+                            justifyContent="flex-end"
+                            alignItems="flex-end"
+                            width="100%"
                         >
-                            Submit
-                        </Button>
+                            <Button
+                                type="submit"
+                                width="100px"
+                                size="lg"
+                                colorScheme="blue"
+                            >
+                                Submit
+                            </Button>
+                        </Box>
                     </Stack>
                 </form>
             </Box>
