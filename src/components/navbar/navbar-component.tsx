@@ -35,15 +35,9 @@ const Navbar: React.FC = () => {
     const { user } = auth!
     const history = useHistory()
     const guestMode = localStorage.getItem("guestMode")
-    const {
-        isOpen: isLoginOpen,
-        onOpen: onLoginOpen,
-        onClose: onLoginClose,
-    } = useDisclosure()
 
     const handleLogin = () => {
         auth?.handleSignIn()
-        onLoginClose()
     }
 
     const handleLogout = () => {
