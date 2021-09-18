@@ -9,7 +9,6 @@ import {
     MenuList,
     MenuButton,
     MenuItem,
-    MenuGroup,
     Badge,
     Avatar,
     useColorModeValue,
@@ -33,10 +32,9 @@ const Navbar: React.FC = () => {
         onClose: onModalClose,
     } = useDisclosure()
     const auth = useAuth()
-    const { user } = auth!;
+    const { user } = auth!
     const history = useHistory()
-    const guestMode = localStorage.getItem('guestMode');
-
+    const guestMode = localStorage.getItem("guestMode")
     const {
         isOpen: isLoginOpen,
         onOpen: onLoginOpen,
@@ -59,6 +57,8 @@ const Navbar: React.FC = () => {
     const navTheme = {
         background: useColorModeValue("white", "black"),
         text: useColorModeValue("black", "white"),
+        loginBg: useColorModeValue("#1A202C", "#E2E8F0"),
+        loginText: useColorModeValue("white", "black"),
     }
 
     return (
@@ -78,7 +78,9 @@ const Navbar: React.FC = () => {
                         <Badge colorScheme="green" p="0" m={0} rounded={"base"}>
                             beta
                         </Badge>
-                        <NavLink to={user || guestMode === 'true' ? '/my-playlists' : '/'}>
+                        <NavLink
+                            to={user || guestMode === "true" ? "/playlists" : "/"}
+                        >
                             <Text
                                 as="h1"
                                 size="xl"
@@ -109,25 +111,38 @@ const Navbar: React.FC = () => {
                                 }}
                                 width={{ base: "full", md: "auto" }}
                                 alignItems="center"
-                                spacing={5}
-                                mt={{ base: 4, md: 0 }}
+                                mt={{ base: 5, md: 0 }}
                                 className="navlinks"
                             >
                                 <Button
+                                    marginRight='10px'
                                     onClick={onModalOpen}
-                                    className="btn feedback_btn"
+                                    colorScheme='cyan'
                                     boxShadow="sm"
+                                    size="lg"
+                                    rounded='full'
                                 >
                                     <Text>Provide Feedback</Text>
                                 </Button>
                                 <Button
-                                    onClick={onLoginOpen}
-                                    colorScheme="teal"
-                                    size='lg'
-                                    rounded='full'
+                                    onClick={handleLogin}
+                                    background={navTheme.loginBg}
+                                    color={navTheme.loginText}
+                                    _hover={{
+                                        background: navTheme.loginBg,
+                                        color: navTheme.loginText,
+                                    }}
+                                    _active={{
+                                        background: navTheme.loginBg,
+                                        color: navTheme.loginText,
+                                    }}
+                                    size="lg"
+                                    className='btn'
+                                    rounded="full"
                                     boxShadow="sm"
                                 >
-                                    <Text fontSize="lg">Login</Text>
+                                    <FontAwesomeIcon icon={faGoogle} />
+                                    <Text margin="0px 10px">Login with Google</Text>
                                 </Button>
                             </Stack>
                         </>
@@ -135,18 +150,53 @@ const Navbar: React.FC = () => {
                         <Menu>
                             <MenuButton>
                                 <Avatar
-                                    size='md'
+                                    size="md"
                                     src={user.avatar}
                                     name={user.name}
                                 ></Avatar>
                             </MenuButton>
                             <MenuList>
-                                <MenuItem as="a" href="/user">
-                                    <Text fontSize="xl">My Playlists</Text>
-                                </MenuItem>
-                                <MenuItem fontSize="xl" onClick={handleLogout}>
-                                    Logout
-                                </MenuItem>
+                                <Stack spacing={2} padding={4}>
+                                    <MenuItem
+                                        rounded="full"
+                                        fontSize="xl"
+                                        fontWeight="500"
+                                        as="a"
+                                        href="/user"
+                                    >
+                                        <Text
+                                            padding={2}
+                                            fontSize="xl"
+                                            fontWeight="500"
+                                        >
+                                            My Playlists
+                                        </Text>
+                                    </MenuItem>
+                                    <MenuItem
+                                        rounded="full"
+                                        fontSize="xl"
+                                        fontWeight="500"
+                                        onClick={onModalOpen}
+                                    >
+                                        <Text
+                                            padding={2}
+                                            fontSize="xl"
+                                            fontWeight="500"
+                                        >
+                                            Provide Feedback
+                                        </Text>
+                                    </MenuItem>
+                                    <MenuItem rounded="full" onClick={handleLogout}>
+                                        <Text
+                                            color='red'
+                                            padding={2}
+                                            fontSize="xl"
+                                            fontWeight="500"
+                                        >
+                                            Logout
+                                        </Text>
+                                    </MenuItem>
+                                </Stack>
                             </MenuList>
                         </Menu>
                     )}
@@ -158,16 +208,6 @@ const Navbar: React.FC = () => {
                 title="Provide Feedback"
             >
                 <FeedbackForm />
-            </CustomModal>
-            <CustomModal
-                isOpen={isLoginOpen}
-                onClose={onLoginClose}
-                title="Login for More Features!"
-            >
-                <Button onClick={handleLogin} size="lg" width="100%">
-                    <FontAwesomeIcon icon={faGoogle} />
-                    <Text margin="0px 10px">Login with Google</Text>
-                </Button>
             </CustomModal>
         </nav>
     )

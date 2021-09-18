@@ -20,6 +20,7 @@ export interface PlaylistInfo{
     playlistId: string,
     playlistName:string,
     playlistThumb:string,
+    recent?:boolean,
     channelName: string
 }
 

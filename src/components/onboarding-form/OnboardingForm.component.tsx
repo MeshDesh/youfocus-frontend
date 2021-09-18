@@ -58,7 +58,7 @@ const OnboardingComponent: React.FC = () => {
                     ),
                     isClosable: true,
                 })
-                history.push('/user')
+                history.push('/playlists')
             })
             .catch((error) => {
                 toast({

@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react"
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
+import { useAuth } from "../../hooks/useAuth"
 import CustomModal from "../modal/modal-component"
 import "./ytform.scss"
 
@@ -24,7 +25,8 @@ const YoutubeForm: React.FC = () => {
     const [disabled, setDisabled] = useState(false)
     var urlReg = new RegExp("[&?]list=([a-z0-9_]+)", "i")
     let history = useHistory()
-
+    const auth = useAuth()
+    const { user } = auth!
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         setError("")
         setUrl(e.currentTarget.value)
@@ -54,7 +56,7 @@ const YoutubeForm: React.FC = () => {
             setDisabled(true)
             setLoading(true)
             var playlistId = getPlaylistId(url)
-            localStorage.setItem("guestMode", JSON.stringify(true))
+            user === null ? localStorage.setItem("guestMode", JSON.stringify(true)) : localStorage.setItem("guestMode", JSON.stringify(false))
             history.push(`/player/${playlistId}`)
             setLoading(false)
         }
@@ -63,7 +65,12 @@ const YoutubeForm: React.FC = () => {
     return (
         <React.Fragment>
             <form onSubmit={handleSubmit}>
-                <InputGroup display='flex' justifyContent='center' alignItems='center' className="yt_input">
+                <InputGroup
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    className="yt_input"
+                >
                     <Input
                         placeholder="Enter your playlist url"
                         type="url"
@@ -86,8 +93,15 @@ const YoutubeForm: React.FC = () => {
                             )
                         }
                     />
-                    <Button margin='0px 5px'  onClick={onOpen} colorScheme="gray" width='50px' height='40px' borderRadius='50px'> 
-                        <QuestionIcon fontSize='14px' />
+                    <Button
+                        margin="0px 5px"
+                        onClick={onOpen}
+                        colorScheme="gray"
+                        width="50px"
+                        height="40px"
+                        borderRadius="50px"
+                    >
+                        <QuestionIcon fontSize="14px" />
                     </Button>
                 </InputGroup>
                 {error && <Text className="error">{error}</Text>}

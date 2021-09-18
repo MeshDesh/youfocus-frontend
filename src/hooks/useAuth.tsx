@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useState, useEffect } from "react"
 import { useGoogleLogin, useGoogleLogout } from "react-google-login"
 import { useHistory } from "react-router"
 import { authContextInterface } from "../interfaces/user-module"
@@ -40,7 +40,7 @@ const useProvideAuth = () => {
                 history.push("/onboarding")
             }else{
                 setUser(data)
-                history.push("/my-playlists")    
+                history.push("/playlists")    
             }
         } catch (error) {
             console.log(error)

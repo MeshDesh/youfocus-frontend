@@ -1,12 +1,15 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
 import { VideoModel, PlaylistInfo, UseFetchProps } from "../interfaces"
+import { useAuth } from "./useAuth"
 
 const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
     const [fetching, setFetching] = useState(true)
     const [videos, setVideos] = useState<Array<VideoModel>>([])
     const [error, setError] = useState<any | null>({})
     const [playlist, setPlaylist] = useState<Partial<PlaylistInfo>>({})
+    const auth = useAuth()
+    const { user } = auth!
 
     useEffect(() => {
         setFetching(true)
@@ -23,6 +26,17 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
                 setPlaylist(playlistInfo || {})
                 setFetching(false)
                 setVideos(playlistData.videos)
+                if (
+                    Object.keys(playlistInfo).length !== 0 &&
+                    playlistInfo.constructor === Object
+                ) {
+                    if (user === null) {
+                        addPlaylistToGuest(playlistInfo)
+                    } else {
+                        console.log(playlist, "here at user add")
+                        addPlaylistToUser(playlistInfo)
+                    }
+                }
             } catch (error) {
                 console.log(error)
             }
@@ -31,30 +45,43 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
         getPlaylist(params)
     }, [])
 
-    useEffect(() => {
-        if (Object.keys(playlist).length !== 0 && playlist.constructor === Object) {
-            const storedPlaylists =
-                JSON.parse(localStorage.getItem("playlists") || "[]") || []
-
-            const recentlyPlayed =
-                JSON.parse(localStorage.getItem("recentlyPlayed") || "[]") || []
-
-            recentlyPlayed[0] = playlist
-            localStorage.setItem("recentlyPlayed", JSON.stringify(recentlyPlayed))
-
-            const playlistFound = storedPlaylists.find(
-                (a: PlaylistInfo) => a.playlistId === playlist.playlistId
+    const addPlaylistToUser = async (playlist: PlaylistInfo) => {
+        try {
+            const res = await axios.post(
+                `${process.env.REACT_APP_BACKEND_BASE_URL}/add-playlist`,
+                {
+                    user,
+                    playlist: {
+                        ...playlist,
+                        recent: true,
+                    },
+                }
             )
-
-            console.log(playlist)
-
-            if (!playlistFound) {
-                storedPlaylists.push(playlist)
-            }
-
-            localStorage.setItem("playlists", JSON.stringify(storedPlaylists))
+            return res
+        } catch (error) {
+            console.log(error)
         }
-    }, [playlist])
+    }
+
+    const addPlaylistToGuest = (playlist: PlaylistInfo) => {
+        const storedPlaylists =
+            JSON.parse(localStorage.getItem("playlists") || "[]") || []
+
+        const recentlyPlayed =
+            JSON.parse(localStorage.getItem("recentlyPlayed") || "[]") || []
+
+        recentlyPlayed[0] = playlist
+        localStorage.setItem("recentlyPlayed", JSON.stringify(recentlyPlayed))
+
+        const playlistFound = storedPlaylists.find(
+            (a: PlaylistInfo) => a.playlistId === playlist.playlistId
+        )
+        if (!playlistFound) {
+            storedPlaylists.push(playlist)
+        }
+
+        localStorage.setItem("playlists", JSON.stringify(storedPlaylists))
+    }
 
     const handleLoadMore = async () => {
         setFetching(true)

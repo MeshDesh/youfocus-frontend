@@ -26,7 +26,7 @@ const Player: React.FC = () => {
         pageToken: "",
     })
     const { handleCopy } = useCopy(window.location.href)
-    const { videos, playlist, fetching=true, handleLoadMore } = usePlaylistFetch({
+    const { videos, playlist, fetching, handleLoadMore } = usePlaylistFetch({
         params,
         setParams,
     })
@@ -94,7 +94,7 @@ const Player: React.FC = () => {
                         justifyItems="end"
                         alignItems="flex-end"
                     >
-                        <NavLink to="/my-playlists">
+                        <NavLink to="/playlists">
                             <Button colorScheme="red" fontSize="12px">
                                 Home
                             </Button>

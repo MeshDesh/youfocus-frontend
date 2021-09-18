@@ -10,7 +10,7 @@ const PlaylistGrid: React.FC<PlaylistGridProps> = ({
 }: PlaylistGridProps) => {
     return (
         <Box className="user_playlists_container">
-            <Heading className="user_page_title">{recentPlaylist ? "Recently Played" : "Your Playlist"}</Heading>
+            <Heading className="user_page_title">{recentPlaylist ? "Recently Played" : "Your Playlists"}</Heading>
             <SimpleGrid
                 margin="20px 0px"
                 gap={10}

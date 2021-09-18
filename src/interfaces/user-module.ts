@@ -1,3 +1,5 @@
+import { PlaylistInfo } from ".";
+
 export interface User{
     name:string
     avatar:string
@@ -16,4 +18,10 @@ export interface authContextInterface {
     } | null
     handleSignIn: () => void
     handleSignOut: () => void
+}
+
+export interface playlistContextInterface{
+    playlists: PlaylistInfo[] | []
+    recentPlaylists: PlaylistInfo[] | []
+    handlePlaylistDelete: (id: string, isRecent: boolean) => void
 }
