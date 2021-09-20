@@ -33,9 +33,9 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
                     if (user === null) {
                         addPlaylistToGuest(playlistInfo)
                     } else {
-                        console.log(playlist, "here at user add")
                         addPlaylistToUser(playlistInfo)
                     }
+                    addPlaylistToRecent(playlistInfo)
                 }
             } catch (error) {
                 console.log(error)
@@ -67,12 +67,6 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
         const storedPlaylists =
             JSON.parse(localStorage.getItem("playlists") || "[]") || []
 
-        const recentlyPlayed =
-            JSON.parse(localStorage.getItem("recentlyPlayed") || "[]") || []
-
-        recentlyPlayed[0] = playlist
-        localStorage.setItem("recentlyPlayed", JSON.stringify(recentlyPlayed))
-
         const playlistFound = storedPlaylists.find(
             (a: PlaylistInfo) => a.playlistId === playlist.playlistId
         )
@@ -81,6 +75,18 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
         }
 
         localStorage.setItem("playlists", JSON.stringify(storedPlaylists))
+    }
+
+    const addPlaylistToRecent = (playlist: PlaylistInfo) => {
+        const recentlyPlayed =
+            user === null
+                ? JSON.parse(localStorage.getItem("guestRecent") || "[]") || []
+                : JSON.parse(localStorage.getItem("userRecent") || "[]") || []
+
+        recentlyPlayed[0] = playlist
+        user === null
+            ? localStorage.setItem("guestRecent", JSON.stringify(recentlyPlayed))
+            : localStorage.setItem("userRecent", JSON.stringify(recentlyPlayed))
     }
 
     const handleLoadMore = async () => {

@@ -3,7 +3,8 @@ import React, { Dispatch, MouseEventHandler, SetStateAction } from "react";
 export interface VideoModel{
     id: string,
     thumbnail: string,
-    title: string
+    title: string,
+    description:string
 }
 
 export interface VideoCardProps{

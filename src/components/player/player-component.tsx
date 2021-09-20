@@ -8,6 +8,11 @@ import {
     Flex,
     Button,
     Stack,
+    Accordion,
+    AccordionItem,
+    AccordionPanel,
+    AccordionIcon,
+    AccordionButton,
 } from "@chakra-ui/react"
 import React, { useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
@@ -54,8 +59,8 @@ const Player: React.FC = () => {
             </Box>
             <Box margin="10px" padding="10px" className="player_ui">
                 <Flex
-                    justifyContent="space-between"
-                    alignItems="center"
+                    justifyContent="space-around"
+                    alignItems="flex-start"
                     className="video_info"
                 >
                     <Box>
@@ -70,16 +75,11 @@ const Player: React.FC = () => {
                             <>
                                 <Skeleton
                                     height="32px"
-                                    width={{base: 'md', md: 'lg', lg: 'xl'}}
+                                    width={{ base: "md", md: "lg", lg: "xl" }}
                                     mt={4}
                                     mb={4}
                                 />
-                                <Skeleton
-                                    height="32px"
-                                    width='xs'
-                                    mt={4}
-                                    mb={4}
-                                />
+                                <Skeleton height="32px" width="xs" mt={4} mb={4} />
                             </>
                         )}
                         <Spacer />
@@ -107,7 +107,30 @@ const Player: React.FC = () => {
                             Copy Playlist Link
                         </Button>
                     </Stack>
+                    <Spacer />
                 </Flex>
+                {videos.length !== 0 ? (
+                    <Accordion allowToggle margin="20px 0px">
+                        <AccordionItem border='none' width='auto'>
+                            <AccordionButton display='flex' border='1px solid gray' rounded='md' width='200px'>
+                                <Box flex="1" textAlign="left"  fontSize='xl'>
+                                   Video Description
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            <AccordionPanel p={8} fontSize='14px'>
+                                {videos[videoIndex].description}
+                            </AccordionPanel>
+                        </AccordionItem>
+                    </Accordion>
+                ) : (
+                    <Skeleton
+                        height="32px"
+                        width={{ base: "md", md: "lg", lg: "xl" }}
+                        mt={4}
+                        mb={4}
+                    />
+                )}
                 <PlaylistContainer
                     params={params}
                     fetching={fetching}

@@ -24,7 +24,9 @@ const Playlists: React.FC = () => {
                     }
                 )
                 const playlists:Array<PlaylistInfo> = res.data.payload;
-                const recentPlaylist:Array<PlaylistInfo> = playlists.filter((playlist) => playlist.recent === true)
+                let recentPlaylist = JSON.parse(
+                    localStorage.getItem("userRecent") || "[]"
+                )
                 setPlaylists(playlists);
                 setRecent(recentPlaylist);
             } catch (error) {
@@ -38,7 +40,7 @@ const Playlists: React.FC = () => {
                 localStorage.getItem("playlists") || "[]"
             )
             let recentPlaylist = JSON.parse(
-                localStorage.getItem("recentlyPlayed") || "[]"
+                localStorage.getItem("guestRecent") || "[]"
             )
             setRecent(recentPlaylist)
             setPlaylists(storedPlaylists)
