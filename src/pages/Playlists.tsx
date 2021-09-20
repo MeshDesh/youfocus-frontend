@@ -68,21 +68,27 @@ const Playlists: React.FC = () => {
     }
 
     const handlePlaylistDelete = (id: string, isRecent: boolean) => {
-        if (user === null) {
-            let updatedPlaylists = isRecent
-                ? recent.filter((playlist) => id !== playlist.playlistId)
-                : playlists.filter((playlist) => id !== playlist.playlistId)
-            if (isRecent) {
-                setRecent(updatedPlaylists)
-                localStorage.setItem(
-                    "recentlyPlayed",
-                    JSON.stringify(updatedPlaylists)
-                )
-            } else {
-                setPlaylists(updatedPlaylists)
-                localStorage.setItem("playlists", JSON.stringify(updatedPlaylists))
-            }
-        }else{
+        if (user === null && !isRecent) {
+            let updatedPlaylists = playlists.filter(
+                (playlist) => id !== playlist.playlistId
+            )
+            setPlaylists(updatedPlaylists)
+            localStorage.setItem("playlists", JSON.stringify(updatedPlaylists))
+        } else if (isRecent) {
+            let updatedRecentPlaylists = recent.filter(
+                (playlist) => id !== playlist.playlistId
+            )
+            setRecent(updatedRecentPlaylists)
+            user === null
+                ? localStorage.setItem(
+                      "guestRecent",
+                      JSON.stringify(updatedRecentPlaylists)
+                  )
+                : localStorage.setItem(
+                      "userRecent",
+                      JSON.stringify(updatedRecentPlaylists)
+                  )
+        } else {
             removePlaylist(id)
         }
     }
