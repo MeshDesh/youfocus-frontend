@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
                                 letterSpacing={"tighter"}
                                 className="logo"
                             >
-                                Playfocus
+                                Youfocus
                             </Text>
                         </NavLink>
                     </Flex>
@@ -98,7 +98,7 @@ const Navbar: React.FC = () => {
                                 />
                             </Box>
                             <Stack
-                                direction={{ base: "column", md: "row" }}
+                                direction="row"
                                 display={{
                                     base: isOpen ? "block" : "none",
                                     md: "flex",
@@ -108,13 +108,28 @@ const Navbar: React.FC = () => {
                                 mt={{ base: 5, md: 0 }}
                                 className="navlinks"
                             >
+                                <a
+                                    href="https://www.producthunt.com/posts/youfocus?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-youfocus"
+                                    target="_blank"
+                                >
+                                    <img
+                                        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=313217&theme=dark"
+                                        alt="Youfocus - Distraction Free learning on Youtube | Product Hunt"
+                                        style={{
+                                            width: "250px",
+                                            height: "35px",
+                                            margin: "10px 0px",
+                                        }}
+                                        width="250"
+                                        height="54"
+                                    />
+                                </a>
                                 <Button
-                                    marginRight='10px'
                                     onClick={onModalOpen}
-                                    colorScheme='cyan'
+                                    colorScheme="cyan"
                                     boxShadow="sm"
                                     size="lg"
-                                    rounded='full'
+                                    rounded="full"
                                 >
                                     <Text>Provide Feedback</Text>
                                 </Button>
@@ -131,7 +146,7 @@ const Navbar: React.FC = () => {
                                         color: navTheme.loginText,
                                     }}
                                     size="lg"
-                                    className='btn'
+                                    className="btn"
                                     rounded="full"
                                     boxShadow="sm"
                                 >
@@ -182,7 +197,7 @@ const Navbar: React.FC = () => {
                                     </MenuItem>
                                     <MenuItem rounded="full" onClick={handleLogout}>
                                         <Text
-                                            color='red'
+                                            color="red"
                                             padding={2}
                                             fontSize="xl"
                                             fontWeight="500"

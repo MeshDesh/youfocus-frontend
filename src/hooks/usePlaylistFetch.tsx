@@ -6,7 +6,7 @@ import { useAuth } from "./useAuth"
 const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
     const [fetching, setFetching] = useState(true)
     const [videos, setVideos] = useState<Array<VideoModel>>([])
-    const [error, setError] = useState<any | null>({})
+    const [error, setError] = useState<any | null>('')
     const [playlist, setPlaylist] = useState<Partial<PlaylistInfo>>({})
     const auth = useAuth()
     const { user } = auth!
@@ -38,6 +38,7 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
                     addPlaylistToRecent(playlistInfo)
                 }
             } catch (error) {
+                setError("Playlist Not Found")
                 console.log(error)
             }
         }

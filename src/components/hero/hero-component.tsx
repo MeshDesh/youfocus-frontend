@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
                         Watch what you love on YouTube without any distraction
                     </Heading>
                     <Text className="hero_text">
-                        with Playfocus watch all your playlists without any
+                        with Youfocus watch all your playlists without any
                         distraction from ads, comments or suggestions
                     </Text>
                     <Flex margin='20px 0px' justifyContent='flex-start' alignItems='center'>

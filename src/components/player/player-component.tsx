@@ -6,6 +6,8 @@ import {
     Spacer,
     Text,
     Flex,
+    Alert,
+    AlertIcon,
     Button,
     Stack,
     Accordion,
@@ -31,7 +33,7 @@ const Player: React.FC = () => {
         pageToken: "",
     })
     const { handleCopy } = useCopy(window.location.href)
-    const { videos, playlist, fetching, handleLoadMore } = usePlaylistFetch({
+    const { error, videos, playlist, fetching, handleLoadMore } = usePlaylistFetch({
         params,
         setParams,
     })
@@ -42,6 +44,15 @@ const Player: React.FC = () => {
         playerVars: {
             autoplay: 0,
         },
+    }
+
+    if(error){
+        return(
+            <Alert status='error'>
+                <AlertIcon></AlertIcon>
+                <Text fontSize='xl' fontWeight='medium' fontFamily='Inter, sans-serif'>{error}</Text>
+            </Alert>
+        )
     }
 
     return (
