@@ -5,24 +5,41 @@ import {
     InputGroup,
     Spinner,
     Text,
+    Select,
+    SelectField,
+    Alert,
+    AlertIcon,
+    useToast,
     useDisclosure,
     Box,
     ListItem,
     UnorderedList,
+    Stack,
     Flex,
 } from "@chakra-ui/react"
-import React, { useState } from "react"
+import axios from "axios"
+import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
 import { useAuth } from "../../hooks/useAuth"
+import { PlaylistForm } from "../../interfaces"
+import { CATEGORIES } from "../../utils/constants"
 import CustomModal from "../modal/modal-component"
 import "./ytform.scss"
 
 const YoutubeForm: React.FC = () => {
     const [url, setUrl] = useState("")
     const [error, setError] = useState("")
-    const [loading, setLoading] = useState(false)
+    const [playlistForm, setPlaylistForm] = useState<PlaylistForm>({
+        playlistId: "",
+        category: CATEGORIES[0].value,
+    })
     const { onOpen, onClose, isOpen } = useDisclosure()
-    const [disabled, setDisabled] = useState(false)
+    const toast = useToast()
+    const {
+        onOpen: onPlaylistFormOpen,
+        onClose: onPlaylistFormClose,
+        isOpen: isPlaylistFormOpen,
+    } = useDisclosure()
     var urlReg = new RegExp("[&?]list=([a-z0-9_]+)", "i")
     let history = useHistory()
     const auth = useAuth()
@@ -53,14 +70,62 @@ const YoutubeForm: React.FC = () => {
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         if (validateUrl(url)) {
-            setDisabled(true)
-            setLoading(true)
             var playlistId = getPlaylistId(url)
-            user === null ? localStorage.setItem("guestMode", JSON.stringify(true)) : localStorage.setItem("guestMode", JSON.stringify(false))
-            history.push(`/player/${playlistId}`)
-            setLoading(false)
+            setPlaylistForm({ ...playlistForm, playlistId: playlistId! })
+            user === null
+                ? localStorage.setItem("guestMode", JSON.stringify(true))
+                : localStorage.setItem("guestMode", JSON.stringify(false))
+            onPlaylistFormOpen()
         }
     }
+
+    const handlePlaylistFormSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault()
+        axios
+            .post(`${process.env.REACT_APP_BACKEND_BASE_URL}/add-playlist-to-public`, {
+                playlistForm,
+            })
+            .then(() => {
+                toast({
+                    duration: 2000,
+                    position: "top",
+                    render: () => (
+                        <Alert variant="solid" size="md" status="success">
+                            <AlertIcon />
+                            <Text
+                                fontSize="xl"
+                                fontWeight="medium"
+                                fontFamily="Inter, sans-serif"
+                            >
+                                Thank you! You can now watch your playlist 
+                            </Text>
+                        </Alert>
+                    ),
+                    isClosable: true,
+                })
+                history.push(`/player/${playlistForm.playlistId}`)
+            })
+            .catch((error) => {
+                toast({
+                    duration: 2000,
+                    position: "top",
+                    render: () => (
+                        <Alert variant="solid" size="md" status="error">
+                            <AlertIcon />
+                            <Text
+                                fontSize="xl"
+                                fontWeight="medium"
+                                fontFamily="Inter, sans-serif"
+                            >
+                                {error.message}
+                            </Text>
+                        </Alert>
+                    ),
+                    isClosable: true,
+                })
+            })
+    }
+
 
     return (
         <React.Fragment>
@@ -84,14 +149,7 @@ const YoutubeForm: React.FC = () => {
                         type="submit"
                         height="40px"
                         width="50px"
-                        isDisabled={disabled}
-                        children={
-                            loading ? (
-                                <Spinner />
-                            ) : (
-                                <ArrowForwardIcon fontSize="20px" />
-                            )
-                        }
+                        children={<ArrowForwardIcon fontSize="20px" />}
                     />
                     <Button
                         margin="0px 5px"
@@ -141,6 +199,60 @@ const YoutubeForm: React.FC = () => {
                         </ListItem>
                     </UnorderedList>
                 </Box>
+            </CustomModal>
+            <CustomModal
+                isOpen={isPlaylistFormOpen}
+                title="What is this Playlist For?"
+                onClose={onPlaylistFormClose}
+            >
+                <form onSubmit={handlePlaylistFormSubmit}>
+                    <Stack spacing={5}>
+                        <div>
+                            <label htmlFor="playlistId">
+                                <Text fontSize="xl" margin="10px 0px">
+                                    Playlist Id:
+                                </Text>
+                            </label>
+                            <Input
+                                size="lg"
+                                type="text"
+                                id="playlistId"
+                                name="playlistId"
+                                defaultValue={playlistForm.playlistId}
+                                disabled
+                            ></Input>
+                        </div>
+                        <div>
+                            <label htmlFor="playlistId">
+                                <Text fontSize="xl" margin="10px 0px">
+                                    What is the Playlist Category?
+                                </Text>
+                            </label>
+                            <Select fontSize='xl' size="lg" id="category" name="category" onChange={(e) => setPlaylistForm({...playlistForm, category: e.target.value})}>
+                                {CATEGORIES.map((category, i) => (
+                                    <option defaultValue={CATEGORIES[0].value} value={category.value} key={i}>
+                                            {category.key}
+                                    </option>
+                                ))}
+                            </Select>
+                        </div>
+                        <Box
+                            display="flex"
+                            justifyContent="flex-end"
+                            alignItems="flex-end"
+                            width="100%"
+                        >
+                            <Button
+                                type="submit"
+                                width="100px"
+                                size="lg"
+                                colorScheme="blue"
+                            >
+                                Submit
+                            </Button>
+                        </Box>                    
+                    </Stack>
+                </form>
             </CustomModal>
         </React.Fragment>
     )

@@ -55,3 +55,8 @@ export interface UseFetchProps{
     params: PlaylistParams,
     setParams: Dispatch<SetStateAction<PlaylistParams>>
 }
+
+export interface PlaylistForm{
+    playlistId: string,
+    category: string
+}

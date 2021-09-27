@@ -9,6 +9,7 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
     const [error, setError] = useState<any | null>('')
     const [playlist, setPlaylist] = useState<Partial<PlaylistInfo>>({})
     const auth = useAuth()
+    const {playlistId} = params;
     const { user } = auth!
 
     useEffect(() => {
@@ -37,6 +38,7 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
                     }
                     addPlaylistToRecent(playlistInfo)
                 }
+                updatePublicPlaylist(playlistId!, playlistInfo)
             } catch (error) {
                 setError("Playlist Not Found")
                 console.log(error)
@@ -45,6 +47,22 @@ const usePlaylistFetch = ({ params, setParams }: UseFetchProps) => {
 
         getPlaylist(params)
     }, [])
+
+
+    const updatePublicPlaylist = async(playlistId: string, playlistInfo: PlaylistInfo) => {
+        try {
+            const res = await axios.put(
+                `${process.env.REACT_APP_BACKEND_BASE_URL}/update-playlist-in-public`,
+                {
+                    playlistId,
+                    playlistInfo
+                }
+            )
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    } 
 
     const addPlaylistToUser = async (playlist: PlaylistInfo) => {
         try {
